@@ -12,8 +12,15 @@ const connection = mysql.createConnection({
 connection.connect(function (err) {
     if (err) throw err;
     console.log("Welcome to Bamazon! Here's what's in stock today!" + "\n");
-    buyStuff();
-  });
+    afterConnection();
+});
+
+function afterConnection() {
+    connection.query("SELECT item_id, product_name, price FROM products", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
+}
 
 function buyStuff() {
     inquirer
