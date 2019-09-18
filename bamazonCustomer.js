@@ -16,7 +16,7 @@ connection.connect(function (err) {
 });
 
 function afterConnection() {
-    connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function (err, res) {
+    connection.query("SELECT item_id, product_name, price FROM products", function (err, res) {
         if (err) throw err;
         console.table(res);
         buyStuff();
@@ -53,7 +53,7 @@ function buyStuff() {
             connection.query("UPDATE products SET stock_quantity=? WHERE item_id=?", [quantityLeft, itemID], function (err) {
                 if (err) throw err;
 
-                console.log("Order fulfilled! Your cost was $" + orderTotal);
+                console.log("Order fulfilled! Your cost is $" + orderTotal);
                 process.exit();
             });
         });
